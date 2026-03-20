@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyMate.Domain", "StudyMate.Domain\StudyMate.Domain.csproj", "{D2D3BDCA-2438-4054-95C4-4E7DED0F7882}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyMate.Domain", "api\StudyMate.Domain\StudyMate.Domain.csproj", "{D2D3BDCA-2438-4054-95C4-4E7DED0F7882}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyMate.Application", "StudyMate.Application\StudyMate.Application.csproj", "{B3AC48DD-6837-491B-9330-A3C1BDB9AF6F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyMate.Application", "api\StudyMate.Application\StudyMate.Application.csproj", "{B3AC48DD-6837-491B-9330-A3C1BDB9AF6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyMate.Infrastructure", "StudyMate.Infrastructure\StudyMate.Infrastructure.csproj", "{D080543F-6F51-4621-A2C3-D1D34D6A7900}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyMate.Infrastructure", "api\StudyMate.Infrastructure\StudyMate.Infrastructure.csproj", "{D080543F-6F51-4621-A2C3-D1D34D6A7900}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyMate.Api", "StudyMate.Api\StudyMate.Api.csproj", "{18FA769C-4B59-4506-B44F-B073D293F095}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyMate.Api", "api\StudyMate.Api\StudyMate.Api.csproj", "{18FA769C-4B59-4506-B44F-B073D293F095}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05-4346-4AA6-1389-037BE0695223}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyMate.Api.Tests", "tests\StudyMate.Api.Tests\StudyMate.Api.Tests.csproj", "{B9F786C9-B588-4793-95AE-91A80947C993}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyMate.Api.Tests", "backend-tests\StudyMate.Api.Tests\StudyMate.Api.Tests.csproj", "{B9F786C9-B588-4793-95AE-91A80947C993}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyMate.Application.Tests", "tests\StudyMate.Application.Tests\StudyMate.Application.Tests.csproj", "{F69F634D-B7AF-47DE-9720-DD71AF566383}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyMate.Application.Tests", "backend-tests\StudyMate.Application.Tests\StudyMate.Application.Tests.csproj", "{F69F634D-B7AF-47DE-9720-DD71AF566383}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

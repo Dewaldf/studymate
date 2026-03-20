@@ -7,10 +7,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure(
-    builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? Environment.GetEnvironmentVariable("CONNECTION_STRING")
-    ?? throw new InvalidOperationException("No connection string configured."));
+//builder.Services.AddInfrastructure(
+//    builder.Configuration.GetConnectionString("DefaultConnection")
+//    ?? Environment.GetEnvironmentVariable("CONNECTION_STRING")
+//    ?? throw new InvalidOperationException("No connection string configured."));
 
 var app = builder.Build();
 
