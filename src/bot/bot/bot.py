@@ -38,7 +38,7 @@ logger = logging.getLogger(__name__)
 _REQUIRED_ENV_VARS = [
     "TELEGRAM_BOT_TOKEN",
     "ANTHROPIC_API_KEY",
-    "GITHUB_TOKEN",
+    "Claude_Github_token",
 ]
 
 
@@ -56,7 +56,7 @@ def _load_config() -> Dict[str, str]:
     return {
         "telegram_token": os.environ["TELEGRAM_BOT_TOKEN"],
         "anthropic_api_key": os.environ["ANTHROPIC_API_KEY"],
-        "github_token": os.environ["GITHUB_TOKEN"],
+        "github_token": os.environ["Claude_Github_token"],
         "github_repo": os.environ.get("GITHUB_REPO", "Dewaldf/studymate"),
     }
 
