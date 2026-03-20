@@ -3,9 +3,16 @@ StudyMate Story Agent — Telegram bot entry point.
 
 Conversation flow:
   CLARIFYING → SUMMARISING → BREAKDOWN → CONFIRMED → CREATING → done
+
+Required Windows environment variables:
+  TELEGRAM_BOT_TOKEN  — from @BotFather on Telegram
+  ANTHROPIC_API_KEY   — from console.anthropic.com
+  GITHUB_TOKEN        — GitHub personal access token (repo scope)
+  GITHUB_REPO         — optional, defaults to Dewaldf/studymate
 """
 import logging
 import os
+import sys
 from typing import Dict
 
 from telegram import Update
@@ -27,6 +34,35 @@ logging.basicConfig(
     level=logging.INFO,
 )
 logger = logging.getLogger(__name__)
+
+_REQUIRED_ENV_VARS = [
+    "TELEGRAM_BOT_TOKEN",
+    "ANTHROPIC_API_KEY",
+    "GITHUB_TOKEN",
+]
+
+
+def _load_config() -> Dict[str, str]:
+    """Read credentials from Windows environment variables and fail fast if any are missing."""
+    missing = [v for v in _REQUIRED_ENV_VARS if not os.environ.get(v)]
+    if missing:
+        for var in missing:
+            logger.error("Missing required environment variable: %s", var)
+        logger.error(
+            "Set these in Windows: System Properties → Advanced → Environment Variables"
+        )
+        sys.exit(1)
+
+    return {
+        "telegram_token": os.environ["TELEGRAM_BOT_TOKEN"],
+        "anthropic_api_key": os.environ["ANTHROPIC_API_KEY"],
+        "github_token": os.environ["GITHUB_TOKEN"],
+        "github_repo": os.environ.get("GITHUB_REPO", "Dewaldf/studymate"),
+    }
+
+
+# Loaded once at startup
+_config: Dict[str, str] = {}
 
 # In-memory conversation store: user_id → Conversation
 _conversations: Dict[int, Conversation] = {}
@@ -54,8 +90,8 @@ def _get_conversation(user_id: int) -> Conversation:
 
 def _get_github_client() -> GitHubClient:
     return GitHubClient(
-        token=os.environ["GITHUB_TOKEN"],
-        repo=os.environ.get("GITHUB_REPO", "Dewaldf/studymate"),
+        token=_config["github_token"],
+        repo=_config["github_repo"],
     )
 
 
@@ -76,7 +112,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     user_id = update.effective_user.id
     text = update.message.text.strip()
     conv = _get_conversation(user_id)
-    api_key = os.environ["ANTHROPIC_API_KEY"]
+    api_key = _config["anthropic_api_key"]
 
     # --- Confirmation trigger: create the stories ---
     if conv.state == ConversationState.BREAKDOWN and conv.is_confirmation(text):
@@ -191,8 +227,10 @@ async def _fetch_existing_issues():
 
 
 def main() -> None:
-    token = os.environ["TELEGRAM_BOT_TOKEN"]
-    app = Application.builder().token(token).build()
+    global _config
+    _config = _load_config()
+
+    app = Application.builder().token(_config["telegram_token"]).build()
 
     app.add_handler(CommandHandler("start", cmd_start))
     app.add_handler(CommandHandler("cancel", cmd_cancel))
