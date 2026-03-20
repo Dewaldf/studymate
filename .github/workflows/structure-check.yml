@@ -1,0 +1,43 @@
+name: Monorepo Structure Check
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  structure:
+    name: Assert expected directory structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check required directories exist
+        run: |
+          MISSING=0
+
+          check_dir() {
+            if [ -d "$1" ]; then
+              echo "✅  $1"
+            else
+              echo "❌  $1  — MISSING"
+              MISSING=$((MISSING + 1))
+            fi
+          }
+
+          check_dir src
+          check_dir src/web
+          check_dir src/api
+          check_dir src/bot
+          check_dir db
+          check_dir db/changelog
+
+          if [ $MISSING -gt 0 ]; then
+            echo ""
+            echo "Structure check failed: $MISSING required director(ies) missing."
+            exit 1
+          fi
+
+          echo ""
+          echo "All required directories present."
